@@ -1,4 +1,4 @@
-![LOOK AT MY TEST COVERAGE BABY!!](https://github.com/jerarddahuyag-code/learn-cicd-starter/actions/workflows/<ci.yaml>badge.svg)
+![LOOK AT MY TEST COVERAGE BABY!!](https://github.com/jerarddahuyag-code/learn-cicd-starter/actions/workflows/ci.yml/badge.svg)
 
 # learn-cicd-starter (Notely)
 
