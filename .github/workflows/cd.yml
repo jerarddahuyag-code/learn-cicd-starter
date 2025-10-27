@@ -27,15 +27,15 @@ jobs:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
 
-      - name: Set image tag
-        id: vars
-        run: echo "IMAGE_TAG=${GITHUB_SHA::7}" >> $GITHUB_OUTPUT
+      # - name: Set image tag
+      #   id: vars
+      #   run: echo "IMAGE_TAG=${GITHUB_SHA::7}" >> $GITHUB_OUTPUT
 
       - name: Build image
-        run: docker build -t docker.io/${{ secrets.DOCKERHUB_USERNAME }}/notely:${{ steps.vars.outputs.IMAGE_TAG }} .
+        run: docker build -t docker.io/${{ secrets.DOCKERHUB_USERNAME }}/notely:latest .
 
       - name: Push image
-        run: docker push docker.io/${{ secrets.DOCKERHUB_USERNAME }}/notely:${{ steps.vars.outputs.IMAGE_TAG }}
+        run: docker push docker.io/${{ secrets.DOCKERHUB_USERNAME }}/notely:latest
      
       - name: Ping Render
         run: curl -sS -X POST "$RENDER_DEPLOY_HOOK"
