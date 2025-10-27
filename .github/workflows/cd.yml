@@ -21,6 +21,22 @@ jobs:
       - name: Build app
         run: ./scripts/buildprod.sh
 
+      - name: Docker login
+        uses: docker/login-action@v3
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+
+      - name: Set image tag
+        id: vars
+        run: echo "IMAGE_TAG=${GITHUB_SHA::7}" >> $GITHUB_OUTPUT
+
+      - name: Build image
+        run: docker build -t docker.io/USERNAME/REPO:${{ steps.vars.outputs.IMAGE_TAG }} .
+
+      - name: Push image
+        run: docker push docker.io/USERNAME/REPO:${{ steps.vars.outputs.IMAGE_TAG }}
+     
       - name: Ping Render
         run: curl -sS -X POST "$RENDER_DEPLOY_HOOK"
         env:
