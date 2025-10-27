@@ -20,7 +20,9 @@ jobs:
 
       - name: Build app
         run: ./scripts/buildprod.sh
-      # - name: Install Docker
-      #   run: 
-      # - name: Build image
-      #   run: docker
+
+      - name: Ping Render
+        run: curl -sS -X POST "$RENDER_DEPLOY_HOOK"
+        env:
+          RENDER_DEPLOY_HOOK: ${{ secrets.RENDER_DEPLOY_HOOK }}
+      
