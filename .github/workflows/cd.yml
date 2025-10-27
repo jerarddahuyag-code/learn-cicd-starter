@@ -39,14 +39,14 @@ jobs:
 
       - name: Migrate db
         run: ./scripts/migrateup.sh
+        env:
+          DATABASE_URL: ${{ secrets.DATABASE_URL }}
 
       - name: Push image
         run: docker push docker.io/${{ secrets.DOCKERHUB_USERNAME }}/notely:latest
      
       - name: Ping Render
         run: curl -sS -X POST "$RENDER_DEPLOY_HOOK"
-
         env:
           RENDER_DEPLOY_HOOK: ${{ secrets.RENDER_DEPLOY_HOOK }}
-          DATABASE_URL: ${{ secrets.DATABASE_URL }}
-      
+          
